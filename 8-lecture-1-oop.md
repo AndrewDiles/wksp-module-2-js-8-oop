@@ -70,7 +70,7 @@ class Car {
 If Car is a class, then we can use the `new` keyword to create a new object of that type.
 
 ```js
-class Car {
+class Car {                //By convention, you capilatize first letter of class
   … // stuff goes here
 }
 let myCar = new Car();
@@ -87,9 +87,11 @@ _The `this` keyword refers to the new object._
 
 ```js
 class Car {
-    constructor(brand) {
-        this.brand = brand;
-    }
+    constructor(brandName, modelName) {
+        this.type = 'automobile';
+        this.brand = brandName;
+        this.model = modelName || '';
+    }   //this is the object
 }
 
 let myCar = new Car("Toyota");
@@ -134,6 +136,7 @@ Every instance of a class has a property that matches the method name and refers
 
 ```js
 class Car {
+
     noise = () => console.log("Vrooom");
 }
 
@@ -152,6 +155,7 @@ class School {
 
     noise = () => {
         console.log("...The sound of students growing...")
+        console.log(`At ${this.name}, students are learning`)
     }
 }
 let concordiaBootcamps = new School('Concordia Bootcamps');
@@ -160,7 +164,7 @@ let concordiaBootcamps = new School('Concordia Bootcamps');
 concordiaBootcamps.noise();
 
 // What do I have to type to output the name?
-
+console.log(concordiaBootcamps.name);
 ```
 
 ---
@@ -168,18 +172,19 @@ concordiaBootcamps.noise();
 ```js
 class Dog {
     constructor(voice) {
-        this.voice = voice;
+        this.voice = voice || 'bark';
     }
     noise = () => {
-        console.log('woof');
+        console.log(this.voice);
     }
     coolOff = () => {
         console.log('pant');
     }
 }
 
-let mastiff = new Dog();
-let terrier = new Dog();
+//let mastiff = new Dog();  //ends up with voice : undefined
+let mastiff = new Dog('WOOF!');
+let terrier = new Dog('yip');
 ```
 
 ---
@@ -212,12 +217,14 @@ let terrier = new Dog('yip!yip!');
 
 ```js
 class Car {
-    constructor() {
-        this.mileage = 0;
+    constructor(milesdriven) {
+        this.status = mileage > 0 ? 'used' : 'new';
+        this.mileage = milesdriven || 0;
     }
     drive = () => { this.mileage = this.mileage + 10 }
+    drivex = (amount) => {this.mileage = this.mileage + amount || '10'}
 }
-let myCar = new Car();
+let myCar = new Car(10000);
 myCar.drive(); 
 ```
 
@@ -230,6 +237,16 @@ myCar.drive();
 // 2. How could we represent varying hunger levels based on activity?
 // 3. How about when it eats?
 class Animal {
+    constructor(name, hungerlevel) {
+        this.name = name;
+        this.hunger = hungerlevel || '0';
+    }
+    play = () => this.hunger -= 15;
+    sleep = () => this.hunger -= 5;
+    eat = () => this.hunger += 50;
+    hungry = () => {this.hunger > 50 ? console.log(`Yes, ${this.name} is hungry`) : console.log(`No, ${this.name} is not hungry`);
+
+    }
 
 }
 
